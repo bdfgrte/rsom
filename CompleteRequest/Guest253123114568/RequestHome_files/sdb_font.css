@@ -1,0 +1,72 @@
+/*@font-face {
+    font-family: 'sdb';
+    src: url('../fonts/sdb_light.eot');
+    src: url('../fonts/sdb_light.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/sdb_light.woff2') format('woff2'),
+         url('../fonts/sdb_light.woff') format('woff');
+    font-weight: light;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'sdb';
+    src: url('../fonts/sdb_medium.eot');
+    src: url('../fonts/sdb_medium.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/sdb_medium.woff2') format('woff2'),
+         url('../fonts/sdb_medium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'sdb';
+    src: url('../fonts/sdb_medium.eot');
+    src: url('../fonts/sdb_medium.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/sdb_medium.woff2') format('woff2'),
+         url('../fonts/sdb_medium.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;*/
+}
+
+
+@font-face {
+    font-family: 'sdb';
+    src: url('../fonts/gdo/gdo_light-webfont.eot');
+    src: url('../fonts/gdo/gdo_light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/gdo/gdo_light-webfont.woff2') format('woff2'),
+         url('../fonts/gdo/gdo_light-webfont.woff') format('woff');
+    font-weight: light;
+    font-style: normal;
+
+}
+/*@font-face {
+    font-family: 'sdb';
+    src: url('../fonts/gdo/gdo_light-webfont.eot');
+    src: url('../fonts/gdo/gdo_light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/gdo/gdo_light-webfont.woff2') format('woff2'),
+         url('../fonts/gdo/gdo_light-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}*/
+
+@font-face {
+    font-family: 'sdb';
+    src: url('../fonts/gdo/gdo_med-webfont.eot');
+    src: url('../fonts/gdo/gdo_med-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/gdo/gdo_med-webfont.woff2') format('woff2'),
+         url('../fonts/gdo/gdo_med-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'sdb';
+    src: url('../fonts/gdo/gdo_bold-webfont.eot');
+    src: url('../fonts/gdo/gdo_bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/gdo/gdo_bold-webfont.woff2') format('woff2'),
+         url('../fonts/gdo/gdo_bold-webfont.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+
+}

@@ -1,0 +1,172 @@
+function showLoader() {
+    $("#global-loader").show();
+}
+(function ($) {
+    "use strict";
+    // ______________ PAGE LOADING
+
+    $(window).on("load", function (e) {
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf("MSIE ");
+
+        if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))  // If Internet Explorer, return version number
+        {
+            $("#global-loader").hide();
+            document.body.classList.add("iefix");
+        }
+        else  // If another browser, return 0
+        {
+            $("#global-loader").fadeOut("slow");
+        }
+    });
+    // ______________ BACK TO TOP BUTTON
+
+    $(window).on("scroll", function (e) {
+        if ($(this).scrollTop() > 300) {
+            $('#back-to-top').fadeIn('slow');
+        } else {
+            $('#back-to-top').fadeOut('slow');
+        }
+    });
+
+    $("#back-to-top").on("click", function (e) {
+        $("html, body").animate({
+            scrollTop: 0
+        }, 600);
+        return false;
+    });
+    $(".vscroll").mCustomScrollbar();
+    $(".app-sidebar").mCustomScrollbar({
+        theme: "minimal",
+        autoHideScrollbar: true
+    });
+    if ($('.site-mainmenu').length > 0) {
+        $('.site-mainmenu').slicknav({
+            prependTo: '.site-branding',
+            label: '',
+            allowParentLinks: true,
+            showChildren: false,
+        });
+
+        $('.site-mainmenu ul>li:has(ul)').addClass('has-child');
+    }
+
+    $('span[disabled] input').attr("disabled", "disabled");
+})(jQuery);
+
+$(function (e) {
+    /** Constant div card */
+    var DIV_CARD = 'div.card';
+    /** Initialize tooltips */
+    $('[data-toggle="tooltip"]').tooltip();
+
+    /** Initialize popovers */
+    $('[data-toggle="popover"]').popover({
+        html: true
+    });
+    /** Function for remove card */
+    $('[data-toggle="card-remove"]').on('click', function (e) {
+        var $card = $(this).closest(DIV_CARD);
+
+        $card.remove();
+
+        e.preventDefault();
+        return false;
+    });
+
+    /** Function for collapse card */
+    $('[data-toggle="card-collapse"]').on('click', function (e) {
+        var $card = $(this).closest(DIV_CARD);
+
+        $card.toggleClass('card-collapsed');
+
+        e.preventDefault();
+        return false;
+    });
+    $('[data-toggle="card-fullscreen"]').on('click', function (e) {
+        var $card = $(this).closest(DIV_CARD);
+
+        $card.toggleClass('card-fullscreen').removeClass('card-collapsed');
+
+        e.preventDefault();
+        return false;
+    });
+    if ($('.fc-datepicker').length > 0) {
+        $('.fc-datepicker').datepicker({
+            showOtherMonths: true,
+            selectOtherMonths: true
+        });
+    }
+    if ($('#showOtherMonths').length > 0) {
+        $('#datepickerNoOfMonths').datepicker({
+            showOtherMonths: true,
+            selectOtherMonths: true,
+            numberOfMonths: 2
+        });
+    }
+
+
+
+});
+
+
+
+/**
+* detect IE
+* returns version of IE or false, if browser is not Internet Explorer
+*/
+
+(function detectIE() {
+    var ua = window.navigator.userAgent;
+
+    var msie = ua.indexOf('MSIE ');
+    if (msie > 0) {
+        // IE 10 or older => return version number
+        var ieV = parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+        document.querySelector('body').className += ' old-ie';
+    }
+
+    var trident = ua.indexOf('Trident/');
+    if (trident > 0) {
+        // IE 11 => return version number
+        var rv = ua.indexOf('rv:');
+        var ieV = parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+        document.querySelector('body').className += ' old-ie';
+        document.querySelector('body').className += ' old-ie11';
+    }
+
+    var edge = ua.indexOf('Edge/');
+    if (edge > 0) {
+        // IE 12 (aka Edge) => return version number
+        var ieV = parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+        document.querySelector('body').className += ' edge';
+    }
+
+    // other browser
+    return false;
+})();
+
+
+
+//$(function () {
+//    $('.chosen-select').chosen();
+//    $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
+//});
+
+$(document).ready(function () {
+    InitDropDown();
+})
+
+function InitDropDown() {
+    var config = {
+        '.chosen-select': { allow_single_deselect: true },
+    }
+    for (var selector in config) {
+        if ($(selector).chosen)
+            $(selector).chosen(config[selector]);
+    }
+}
+
+//$(document).ready(function () {
+//    $(".chosen-select").chosen();
+//});

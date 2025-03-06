@@ -1,0 +1,599 @@
+﻿@font-face {
+    font-family: 'DSFont';
+    src: url('ds.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'DSFont', sans-serif;
+}
+div#PlaceHolderMenu_PlaceHolderMenu_menuBasic {
+    float: none !important;
+}
+
+.bottom-content-wrap.row > .col-md-12 > a {
+    display: none !important;
+    left: 0 !important;
+}
+
+ul.slicknav_nav li {
+    width: 100vw;
+}
+
+.slicknav_parent.slicknav_open ul {
+    position: inherit !important;
+}
+
+ul.slicknav_nav li li.has-popup.dynamic.slicknav_parent.slicknav_open {
+    position: static !important;
+}
+
+a.slicknav_item.slicknav_row > a {
+    pointer-events: none;
+}
+
+.custom-control-label:before {
+    border: 1px solid #5f95ea !important;
+}
+
+/**RADIO BUTTON*/
+
+
+/* The Modal (background) */
+.modelPopup {
+    display: block; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modelPopup-content {
+    /*position: relative;*/
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    /* -webkit-animation-name: animatetop;
+        -webkit-animation-duration: 0.4s;
+        animation-name: animatetop;
+        animation-duration: 0.5s;*/
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {
+        top: 0px;
+        opacity: 0
+    }
+
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+@keyframes animatetop {
+    from {
+        top: 0px;
+        opacity: 0
+    }
+
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+/* The Close Button */
+.close-modelPopup {
+    color: red !important;
+    float: right;
+    font-size: 28px;
+    font-weight: bold !important;
+    margin: 0rem auto 0rem 0rem !important;
+}
+
+    .close-modelPopup:hover, .close-modelPopup:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+.modelPopup-header {
+    padding: 2px 16px;
+    background-color: #59bb85;
+    color: white;
+}
+
+.modelPopup-body {
+    padding: 2px 16px;
+    text-align: center;
+    font-size: 15px;
+}
+
+.modelPopup-footer2 {
+    padding: 2px 16px;
+    /*background-color: #5cb85c;*/
+    /*color: white;*/
+    /*background-color: #59bb85;*/
+    padding: 1rem;
+    margin: auto;
+    text-align: center;
+}
+
+
+.radiobtn {
+    position: relative;
+    display: block;
+}
+
+    .radiobtn label {
+        display: block;
+        background: #eee;
+        color: #444;
+        border-radius: 8px;
+        padding: 20px 20px;
+        border: 2px solid #ccc;
+        margin-bottom: 5px;
+        cursor: pointer;
+        /* border-radius: 0; */
+    }
+
+        .radiobtn label:after,
+        .radiobtn label:before {
+            content: "";
+            position: absolute;
+            right: 40px;
+            bottom: 52px;
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+            background: white;
+        }
+
+        .radiobtn label:before {
+            background: transparent;
+            transition: 0.1s width cubic-bezier(0.075, 0.82, 0.165, 1) 0s, 0.3s height cubic-bezier(0.075, 0.82, 0.165, 2) 0.1s;
+            z-index: 2;
+            overflow: hidden;
+            background-repeat: no-repeat;
+            background-size: 13px;
+            background-position: center;
+            width: 0;
+            height: 0;
+            background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNS4zIDEzLjIiPiAgPHBhdGggZmlsbD0iI2ZmZiIgZD0iTTE0LjcuOGwtLjQtLjRhMS43IDEuNyAwIDAgMC0yLjMuMUw1LjIgOC4yIDMgNi40YTEuNyAxLjcgMCAwIDAtMi4zLjFMLjQgN2ExLjcgMS43IDAgMCAwIC4xIDIuM2wzLjggMy41YTEuNyAxLjcgMCAwIDAgMi40LS4xTDE1IDMuMWExLjcgMS43IDAgMCAwLS4yLTIuM3oiIGRhdGEtbmFtZT0iUGZhZCA0Ii8+PC9zdmc+);
+        }
+
+    .radiobtn input[type="radio"] {
+        display: none;
+        position: absolute;
+        width: 100%;
+    }
+
+        .radiobtn input[type="radio"]:checked + label {
+            background: #eee;
+            animation-name: blink;
+            animation-duration: 1s;
+            border-color: #017da3;
+            font-weight: 500;
+        }
+
+            .radiobtn input[type="radio"]:checked + label:after {
+                background: #017da3;
+            }
+
+            .radiobtn input[type="radio"]:checked + label:before {
+                width: 20px;
+                height: 20px;
+            }
+
+@@keyframes blink {
+    0% {
+        background-color: #fdcb77;
+    }
+
+    10% {
+        background-color: #fdcb77;
+    }
+
+    11% {
+        background-color: #fdd591;
+    }
+
+    29% {
+        background-color: #fdd591;
+    }
+
+    30% {
+        background-color: #fdcb77;
+    }
+
+    50% {
+        background-color: #fdd591;
+    }
+
+    45% {
+        background-color: #fdcb77;
+    }
+
+    50% {
+        background-color: #fdd591;
+    }
+
+    100% {
+        background-color: #fdcb77;
+    }
+}
+
+/**RADIO BUTTON*/
+
+/* for report*/
+input[type=radio]:checked:before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 17px;
+    height: 17px;
+    top: 0;
+    right: 0;
+    background-color: #7ebf61;
+}
+
+input[type=radio]:checked:after {
+    content: "";
+    display: block;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    position: absolute;
+    top: 2px;
+    right: 6px;
+}
+
+
+input[type=checkbox] {
+    position: relative;
+    cursor: pointer;
+}
+
+    input[type=checkbox]:before {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 17px;
+        height: 17px;
+        top: 0;
+        right: 0;
+        background-color: #DFE3F3;
+        border-radius: 4px;
+    }
+
+    input[type=checkbox]:checked:before {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 17px;
+        height: 17px;
+        top: 0;
+        right: 0;
+        background-color: #7ebf61;
+    }
+
+    input[type=checkbox]:checked:after {
+        content: "";
+        display: block;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+        position: absolute;
+        top: 2px;
+        right: 6px;
+    }
+
+
+
+input[type=radio] {
+    position: relative;
+    cursor: pointer;
+}
+
+    input[type=radio]:before {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 17px;
+        height: 17px;
+        top: 0;
+        right: 0;
+        background-color: #DFE3F3;
+        border-radius: 4px;
+    }
+
+    input[type=radio]:checked:before {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 17px;
+        height: 17px;
+        top: 0;
+        right: 0;
+        background-color: #7ebf61;
+    }
+
+    input[type=radio]:checked:after {
+        content: "";
+        display: block;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+        position: absolute;
+        top: 2px;
+        right: 6px;
+    }
+
+
+
+input[type=radio] {
+    position: relative;
+    cursor: pointer;
+}
+
+    input[type=radio]:before {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 17px;
+        height: 17px;
+        top: 0;
+        right: 0;
+        background-color: #DFE3F3;
+        border-radius: 50%;
+    }
+
+    input[type=radio]:checked:before {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 17px;
+        height: 17px;
+        top: 0;
+        right: 0;
+        background-color: #adc4a4;
+        border-radius: 50%;
+    }
+
+    input[type=radio]:checked:after {
+        content: "";
+        display: block;
+        width: 6px;
+        height: 6px;
+        background: white;
+        border-radius: 50%;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+        position: absolute;
+        top: 5.3px;
+        right: 5.3px;
+    }
+
+#ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ReportViewer1 {
+    position: relative;
+}
+
+#VisibleReportContentctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ReportViewer1_ctl13 > div table {
+    margin: auto !important;
+}
+
+.MenuBarBkGnd.ToolBarBackground {
+    display: block !important;
+    height: 48px !important;
+    margin-right: 0% !important;
+    margin: auto !important;
+}
+
+
+#ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ReportViewer1 {
+    display: table-caption;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: auto;
+    left: 0;
+    right: 0;
+}
+
+#ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ReportViewer1_ReportViewer {
+    margin: auto;
+    text-align: center;
+}
+
+.MenuBarBkGnd.ToolBarBackground {
+    display: block !important;
+    height: 100px !important;
+    margin: auto !important;
+}
+
+@media (max-width: 769px) {
+    .fixed-checkbox input[type='checkbox'] ~ label:before {
+        background-color: transparent !important;
+    }
+
+    span.glyphui {
+        color: #000000;
+        zoom: 199%;
+    }
+
+    .ToolBarButtonsCell {
+        display: flex;
+        min-height: 138px;
+        padding-top: 34px;
+        justify-content: space-between;
+    }
+
+    .MSRS-RVC .ToolbarPageNav.WidgetSet input, .MSRS-RVC .ToolbarFind.WidgetSet input, .ToolbarPageNav span, .MSRS-RVC .ToolbarZoom.WidgetSet select {
+        zoom: 170%;
+    }
+
+    .MenuBarBkGnd.ToolBarBackground {
+        display: block !important;
+        height: 100px !important;
+        margin: auto !important;
+    }
+
+    .ToolBarButtonsCell {
+        position: absolute;
+        top: 7px;
+        left: 7px;
+        right: 7px;
+    }
+
+
+    .MSRS-RVC.rsRtl {
+        padding-top: 58px;
+    }
+
+
+    .ToolBarBackground {
+        background-color: transparent !important;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .fixed-checkbox input[type='checkbox'] ~ label:before {
+        top: 8rem;
+        right: 22px;
+        display: none;
+    }
+
+    .fixed-checkbox input[type='checkbox'] ~ label:after {
+        top: 8rem;
+        right: 21px;
+        display: none;
+    }
+
+    #ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ReportViewer1_ReportViewer,
+    #ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ReportViewer1_ctl10 {
+        zoom: 100% !important;
+    }
+}
+
+@media (max-width: 575px) {
+    #header > div.top-header > div.container > div > div.col-md-7.col-lg-6.text-center.align-self-center {
+        display: block;
+    }
+
+    .site-branding {
+        max-width: 100% !important;
+    }
+
+    #header > div.top-header > div.container > div > div.col-md-5.offset-md-0.offset-lg-1 {
+        width: 100%;
+    }
+
+    input[type='checkbox'] ~ label:before {
+        position: absolute;
+        top: 7.5rem !important;
+        right: 22px;
+        display: none;
+        width: 1rem;
+        height: 1rem;
+        content: "";
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 50% 50%;
+        z-index: 10;
+    }
+
+    .fixed-checkbox input[type='checkbox'] ~ label:after {
+        position: absolute;
+        top: 7.5rem !important;
+        right: 21px;
+        display: none;
+        width: 1rem;
+        height: 1rem;
+        content: "";
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 50% 50%;
+        z-index: 10;
+    }
+}
+
+
+@media only screen and (max-width: 600px) {
+
+    #ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ReportViewer1_ReportViewer,
+    #ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ReportViewer1_ctl10 {
+        zoom: 40% !important;
+    }
+
+    .MenuBarBkGnd.ToolBarBackground {
+        display: block !important;
+        height: 100px !important;
+        margin: auto !important;
+        width: 100% !important;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .MenuBarBkGnd.ToolBarBackground {
+        display: block !important;
+        height: 100px !important;
+        margin: auto !important;
+        width: 100% !important;
+    }
+}
+
+@media only screen and (min-width: 300px) {
+
+    #ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ReportViewer1_ReportViewer,
+    #ctl00_ctl00_PlaceHolderMain_PlaceHolderMain_ReportViewer1_ctl10 {
+        zoom: 26%;
+    }
+
+    .MenuBarBkGnd.ToolBarBackground {
+        display: block !important;
+        height: 100px !important;
+        margin: auto !important;
+        width: 100% !important;
+    }
+}
+
+
+
+@media (max-width: 769px) {
+    .MenuBarBkGnd.ToolBarBackground {
+        display: block !important;
+        height: 100px !important;
+        margin: auto !important;
+        width: 100% !important;
+    }
+}

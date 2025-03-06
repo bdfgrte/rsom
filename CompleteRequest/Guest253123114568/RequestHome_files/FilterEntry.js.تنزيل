@@ -1,0 +1,108 @@
+﻿function AllowCharAndNumberInsertMode(event) {
+    var keyStroke = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+    var returnValue = false;
+
+    if ((keyStroke >= 65 && keyStroke <= 90) || (keyStroke >= 97 && keyStroke <= 122) || (keyStroke >= 2 && keyStroke <= 3) || (keyStroke >= 1569 && keyStroke <= 1610) || (keyStroke >= 48 && keyStroke <= 57) || keyStroke == 32 || keyStroke == 8)
+        returnValue = true;
+
+    return returnValue;
+}
+
+function AllowChar(event) {
+    var keyStroke = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+    var returnValue = false;
+
+    if ((keyStroke >= 65 && keyStroke <= 90) || (keyStroke >= 97 && keyStroke <= 122) || (keyStroke >= 1569 && keyStroke <= 1610) || keyStroke == 32 || keyStroke == 8 || keyStroke == 13 || (keyStroke == 92))
+        returnValue = true;
+
+    return returnValue;
+}
+
+function AllowNumber(event) {
+    event = (event) ? event : window.event;
+    var charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
+}
+
+function onlyDigits(s) {
+    for (let i = s.length - 1; i >= 0; i--) {
+        const d = s.charCodeAt(i);
+        if (d < 48 || d > 57) return false
+    }
+    return true;
+}
+
+function AllowNumberWithArabic(event) {
+    var keyStroke = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+    var returnValue = false;
+    console.log("keyStroke: " + keyStroke);
+    if (keyStroke == 32)
+        returnValue = true;
+
+    if (((keyStroke >= 48) && (keyStroke <= 57) || (keyStroke == 46)) || (keyStroke >= 2 && keyStroke <= 3) || (keyStroke >= 1569 && keyStroke <= 1610) || keyStroke == 8)
+        returnValue = true;
+
+    return returnValue;
+}
+
+function AllowNumberAndMinus(event) {
+    var keyStroke = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+    var returnValue = false;
+
+    if (((keyStroke >= 48) && (keyStroke <= 57)) || keyStroke == 8 || keyStroke == 45)
+        returnValue = true;
+
+
+    return returnValue;
+}
+
+function IsNumericVal(evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+
+    return true;
+}
+
+function AllowNumberAndDot(input, event) {     
+    var charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode == 46) {
+        //Check if the text already contains the . character
+        if (input.value.indexOf('.') === -1) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        if (charCode > 31 &&
+            (charCode < 48 || charCode > 57))
+            return false;
+    }
+    return true;
+}
+
+function AllowCharAndNumber(event) {
+
+    var keyStroke = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+
+    var returnValue = false;
+
+    if ((keyStroke >= 65 && keyStroke <= 90) || (keyStroke >= 97 && keyStroke <= 122) || (keyStroke >= 1569 && keyStroke <= 1610) || (keyStroke >= 48 && keyStroke <= 57) || keyStroke == 32 || keyStroke == 47 || keyStroke == 8 || keyStroke == 13 || (keyStroke >= 40 && keyStroke <= 41) || (keyStroke >= 45 && keyStroke <= 46) || (keyStroke >= 2 && keyStroke <= 3) || (keyStroke == 37) || (keyStroke == 92))
+        returnValue = true;
+
+
+    return returnValue;
+}
+
+function AllowForUserName(event) {
+    var keyStroke = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+    var returnValue = false;
+
+    if ((keyStroke >= 65 && keyStroke <= 90) || (keyStroke >= 97 && keyStroke <= 122) || (keyStroke >= 1569 && keyStroke <= 1610) || keyStroke == 32 || keyStroke == 8 || keyStroke == 13 || (keyStroke == 92) || (keyStroke >= 48 && keyStroke <= 57))
+        returnValue = true;
+
+    return returnValue;
+}

@@ -1,0 +1,303 @@
+﻿
+/* Main */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
+
+:root {
+    --deskycal-main-color: coral;
+    --deskycal-today-bg-color: #763000;
+    --deskycal-today-right-color: #eee;
+    --deskycal-today-left-hover-color: #bbb;
+    --deskycal-base-bg-color: #0c0d2b;
+    --deskycal-dates-color: #ddd;
+    --deskycal-disabled-dates-color: #98AFC7; /*#444;*/
+    --deskycal-border-width: 1px;
+    --deskycal-border-radius: 5px;
+    --deskycal-border-color: #7b7a7a;
+    --deskycal-font-size: 16px;
+    --deskycal-line-height: 25px;
+    --deskycal-width-double: 400px;
+    --deskycal-width-single: 350px;
+}
+
+.desky-cal-hidden {
+    display: none !important;
+}
+
+.deskycal {
+    /* commented by alnaggar
+        width: min-content;
+    */
+}
+
+    .deskycal input {
+        cursor: pointer;
+        /* commented by alnaggar
+            height: 22px;
+            background-position-x: 1px;
+            color: #999;
+            background-color: #fcfcfc;
+        */
+        padding-right: 30px;
+        background: url("https://cdn.jsdelivr.net/gh/danruggi/datepicker@v4.0/icons/calendar.png") no-repeat left;
+        background-size: 20px;
+        background-position: bottom 10px right 5px;
+    }
+
+
+
+        .deskycal input:hover {
+            /*background-color: #ffffd6;*/
+        }
+
+.desky-cal-container {
+    /*font-family: "Roboto Condensed";*/
+    /*font-size: var(--deskycal-font-size);*/
+    /*color: var(--deskycal-dates-color);*/
+    position: absolute;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    user-select: none;
+    border: var(--deskycal-border-width) solid #c4d8f8; /*var(--deskycal-border-color);*/
+    background-color: #ffffff; /*var(--deskycal-base-bg-color);*/
+    border-radius: var(--deskycal-border-radius);
+    width: var(--deskycal-width-double);
+    z-index: 1000; /*Back of the dark container*/
+    overflow: auto;
+}
+
+    .desky-cal-container .left {
+        border-right: 1px solid #333;
+        margin: 2em 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .desky-cal-container .right {
+        position: relative;
+        margin: 2em 0;
+        text-align: center;
+    }
+
+    .desky-cal-container .left-day {
+        font-size: 4em;
+        line-height: 1em;
+        cursor: pointer;
+    }
+
+    .desky-cal-container .left-today {
+        font-size: 0.8em;
+    }
+
+
+    .desky-cal-container .desky-arrow {
+        /* color: white; */
+        font-weight: 800;
+        cursor: pointer;
+    }
+
+    .desky-cal-container .desky-cal-month-name,
+    .desky-cal-container .desky-cal-dow-list {
+        /*color: var(--deskycal-main-color);*/
+    }
+
+
+
+    .desky-cal-container .desky-cal-right-header {
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr;
+        gap: 0;
+        line-height: var(--deskycal-line-height);
+        /* line-height: 35px; */
+    }
+
+    .desky-cal-container .desky-cal-right-bottom {
+        margin: 0.1em 1em;
+    }
+
+        .desky-cal-container .desky-cal-right-bottom > div {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+            gap: 0;
+            /*font-size: 0.8em;*/
+        }
+
+        .desky-cal-container .desky-cal-right-bottom div.desky-cal-dow-list {
+            border-bottom: 1px solid #e0e8f5;
+            margin: 5px 0;
+        }
+
+    .desky-cal-container .desky-cal-day-list {
+        line-height: var(--deskycal-line-height);
+        margin: 0.8rem 0 0 0;
+    }
+
+    .desky-cal-container .last-month,
+    .desky-cal-container .next-month,
+    .desky-cal-container .curr-month.disabled {
+        color:  var(--deskycal-disabled-dates-color); 
+    }
+
+    .desky-cal-container .curr-month:not(.disabled) {
+        color: blue; /*var(--deskycal-dates-color);*/
+        cursor: pointer;
+    }
+
+    .desky-cal-container .curr-month.today {
+        background-color: #e0e8f5;
+        /*color: var(--deskycal-today-right-color);*/
+        /*color: blue;*/
+        border-radius: 7px;
+        border: 2px solid var(--deskycal-today-bg-color);
+    }
+
+    .desky-cal-container .curr-month.selected {
+        background-color: #a1c4fd; /*var(--deskycal-today-bg-color);*/
+        color: blue; /*var(--deskycal-today-right-color);*/
+        border-radius: 7px;
+        border: 2px solid blue;
+    }
+
+        /*.desky-cal-container .curr-month.selected span {
+            color: #f8f9fa !important;*/ /*var(--deskycal-today-right-color);*/
+        /*}*/
+
+    .desky-cal-container .curr-month:not(.disabled):hover,
+    .desky-cal-container .desky-arrow:hover,
+    .desky-cal-container /*.desky-cal-close*/ :hover {
+        /*color: var(--deskycal-main-color);*/
+    }
+
+    .desky-cal-container .curr-month:not(.disabled, .selected, .today):hover {
+        /*color: var(--deskycal-main-color);*/
+        background-color: #e0e8f5; /*var(--deskycal-today-bg-color);*/
+        border-radius: 7px;
+    }
+
+    .desky-cal-container .left:hover {
+        color: var(--deskycal-today-left-hover-color);
+    }
+
+    .desky-cal-container .desky-cal-close {
+        font-family: sans-serif;
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        font-size: 1.5em;
+        font-weight: bold;
+        cursor: pointer;
+        color: red;
+    }
+
+
+    /* Smaller */
+    .desky-cal-container.single {
+        width: var(--deskycal-width-single);
+        grid-template-columns: 1fr;
+    }
+        /* .desky-cal-container.single .desky-cal-close{font-size: 1em; } */
+        .desky-cal-container.single .desky-cal-daylist {
+            line-height: 1rem;
+            margin: 0.8rem 0 0 0;
+        }
+
+    .desky-cal-container .right .clicked {
+        /*background-color: var(--deskycal-main-color);
+        color: #333 !important;
+        border-radius: 7px;*/
+    }
+
+.curr-month.cal-sel-day {
+    border: 1px solid #e0e8f5;
+    border-radius: 7px;
+}
+
+@media only screen and (max-width: 600px) {
+    .deskycal input {
+        font-size: 16px;
+    }
+
+    .desky-cal-container {
+        grid-template-columns: 1fr;
+    }
+
+        .desky-cal-container .left {
+            display: none !important;
+        }
+}
+
+@media only screen and (max-width: 1100px) {
+    .desky-cal-container .curr-month:hover, .desky-cal-container .desky-arrow:hover, .desky-cal-container .desky-cal-close:hover {
+        color: #333;
+    }
+
+    .desky-dark-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: #00000088;
+        width: 100%;
+        height: 100%;
+        z-index: 9;
+    }
+
+    .desky-cal-container, .desky-cal-container.single {
+        max-width: 500px;
+        width: 90vw;
+        max-height: 88vh;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 22px;
+        height: 400px;
+        /* line-height: 25px; */
+    }
+
+        /* 	.desky-cal-container.single {
+		width: 90vw;
+	}
+ */
+        .desky-cal-container .right {
+            margin: auto 1em;
+        }
+
+        .desky-cal-container .left {
+            border-right: none;
+            margin: 10px auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+
+        .desky-cal-container .desky-cal-right-bottom > div {
+            font-size: 24px;
+            line-height: 24px;
+            gap: 11px;
+        }
+
+        .desky-cal-container .desky-cal-right-header {
+            line-height: 55px;
+            font-size: 22px;
+        }
+
+    .desky-arrow {
+        font-size: 30px;
+    }
+
+    .desky-cal-container .last-month, .desky-cal-container .next-month {
+        color: var(--deskycal-disabled-dates-color);
+    }
+
+    .desky-cal-container .desky-cal-close {
+        left: 10px;
+        top: 15px;
+        font-size: 40px;
+    }
+
+    /* .room-card-container {width: 100%;} */
+}

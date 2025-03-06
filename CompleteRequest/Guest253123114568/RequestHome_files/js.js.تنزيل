@@ -1,0 +1,542 @@
+﻿////////////////// ***** ////////////////////
+// desky calendar Javascript 
+// by Daniele Rugginenti
+// 2021 08 28 ver. 2.0 rev 1
+// 2021 10 01 ver. 2.5 -- Adding mobile full page support 
+// 2022 05 16 ver. 3.0 -- Make it Independent 
+// 2022 05 16 ver. 3.5 -- Working on github 
+////////////////////////////////////////////
+
+function initDeskyCalendar(inputId) {
+
+    $("#" + inputId).click(function (e) { showCalSel(e, inputId); });
+    drawCalSel(inputId);
+}
+
+function drawCalSel(inputId) {
+    let container = $("#" + inputId).parent();
+
+    var min = (container.find("[id*=hfMin]").val() ? container.find("[id*=hfMin]").val() : "0");
+    var max = (container.find("[id*=hfMax]").val() ? container.find().val() : "0");
+    var sel = (container.find("[id*=hfSel]").val() ? container.find("[id*=hfSel]").val() : "0");
+
+    if (sel == 0) {
+        container.find(".cls-txtDayValue").val("");
+        container.find("[id*=hfSel]").val("");
+    }
+
+    let isHijri = container.find(".cal-type").hasClass("hijri-calendar");
+    $.getJSON("/common/CalendarHandler.ashx", { min, max, sel, isHijri }).done(function (json) {
+
+
+        let year = container.find("#ddlYear").empty();
+        json.yearsList.forEach(function (item) { year.append('<option value="' + item + '">' + item + '</option>'); });
+        year.val(json.selectedYear);
+
+        let month = container.find("#ddlMonth").empty();
+        json.monthsList.forEach(function (item, index) { month.append('<option value="' + String(index + 1).padStart(2, "0") + '">' + item + '</option>'); });
+        month.val(String(json.selectedMonth).padStart(2, "0"));
+
+        container.find('.months-name').html(json.monthsName);
+        let out = "";
+        json.daysList.forEach(function (day) {
+            if (day.Value == json.selectedDate) {
+                container.find(".cls-txtDayValue").val(day.DisplayedValue + "  -  " + day.DayName + "  -  " + day.HijriDisplayedValue);
+                container.find("[id*=hfSel]").val(day.Value);
+            }
+            let todayClass = day.IsToday ? " today " : " ";
+            let selectedClass = day.Value == json.selectedDate ? " selected " : " ";
+            if (day.IsEnabled) {
+                out +=
+                    "<div " +
+                    "   class='curr-month cal-sel-day " + todayClass + selectedClass + "'" +
+                    "   style='padding: 1px;' onClick='dayClick(this)'" +
+                    "   data-day='" + JSON.stringify(day) + "'>" +
+                    "   <span>" + (isHijri ? day.HijriDayInMonth : day.DayInMonth) + "</span>" +
+                    "   <span " +
+                    "       style='float: right; margin-right: 5px; margin-top: 15px;color: forestgreen;'>" + (isHijri ? day.DayInMonth : day.HijriDayInMonth) +
+                    "   </span>" +
+                    "</div>";
+            }
+            else {
+                out +=
+                    "<div " +
+                    "   class='curr-month cal-sel-day  " + todayClass + " disabled'" +
+                    "   style='padding: 1px;'>" +
+                    "   <span>" + (isHijri ? day.HijriDayInMonth : day.DayInMonth) + "</span>" +
+                    "   <span " +
+                    "       style='float: right; margin-right: 5px; margin-top: 15px;'>" + (isHijri ? day.DayInMonth : day.HijriDayInMonth) +
+                    "   </span>" +
+                    "</div>";
+            }
+        });
+
+        container.find('.desky-cal-day-list').empty().append($(out));
+    });
+    //json = CreateCalendar(min, max, sel, isHijri);
+
+    //let year = container.find("#ddlYear").empty();
+    //json.yearsList.forEach(function (item) { year.append('<option value="' + item + '">' + item + '</option>'); });
+    //year.val(json.selectedYear);
+
+    //let month = container.find("#ddlMonth").empty();
+    //json.monthsList.forEach(function (item, index) { month.append('<option value="' + String(index + 1).padStart(2, "0") + '">' + item + '</option>'); });
+    //month.val(String(json.selectedMonth).padStart(2, "0"));
+
+    //container.find('.months-name').html(json.monthsName);
+    //let out = "";
+    //json.daysList.forEach(function (day) {
+    //    if (day.Value == json.selectedDate) {
+    //        input.val(day.DisplayedValue + "  -  " + day.DayName + "  -  " + day.HijriDisplayedValue)
+    //            .data("sel", day.Value)
+    //            .parent().find("input[type=hidden]").val(day.Value);
+    //    }
+    //    let todayClass = day.IsToday ? " today " : " ";
+    //    let selectedClass = container.find("input[type=hidden]").val() == day.Value ? " selected " : " ";
+    //    if (day.IsEnabled) {
+    //        out +=
+    //            "<div " +
+    //            "   class='curr-month cal-sel-day " + todayClass + selectedClass + "'" +
+    //            "   style='padding: 1px;' onClick='dayClick(this)'" +
+    //            "   data-day='" + JSON.stringify(day) + "'>" +
+    //            "   <span>" + (isHijri ? day.HijriDayInMonth : day.DayInMonth) + "</span>" +
+    //            "   <span " +
+    //            "       style='float: right; margin-right: 5px; margin-top: 15px;color: forestgreen;'>" + (isHijri ? day.DayInMonth : day.HijriDayInMonth) +
+    //            "   </span>" +
+    //            "</div>";
+    //    }
+    //    else {
+    //        out +=
+    //            "<div " +
+    //            "   class='curr-month cal-sel-day  " + todayClass + " disabled'" +
+    //            "   style='padding: 1px;'>" +
+    //            "   <span>" + (isHijri ? day.HijriDayInMonth : day.DayInMonth) + "</span>" +
+    //            "   <span " +
+    //            "       style='float: right; margin-right: 5px; margin-top: 15px;'>" + (isHijri ? day.DayInMonth : day.HijriDayInMonth) +
+    //            "   </span>" +
+    //            "</div>";
+    //    }
+    //});
+
+    //container.find('.desky-cal-day-list').empty().append($(out));
+    //});
+}
+
+function calSelChange(inputId) {
+
+    let container = $("#" + inputId).parent();
+    let year = container.find("#ddlYear");
+    let month = container.find("#ddlMonth");
+    container.find("[id*=hfSel]").val(year.val() + month.val());
+    drawCalSel(inputId);
+}
+
+function calTypeChange(inputId) {
+    let container = $("#" + inputId).parent();
+    container.find(".cal-type").toggleClass("hijri-calendar");
+
+    if (container.find(".cal-type").hasClass("hijri-calendar"))
+        container.find(".cal-type").css("background-image", "url(../../assets/DatePicker/greg-cal.png)");
+    else
+        container.find(".cal-type").css("background-image", "url(../../assets/DatePicker/hijri-cal.png)");
+
+    drawCalSel(inputId);
+}
+
+function dayClick(el) {
+
+    if (el.classList.contains('disabled'))
+        return;
+
+    el.classList.add('clicked');
+    let day = JSON.parse(el.dataset.day);
+    let container = $(el).closest('.deskycal');
+    container.find(".cls-txtDayValue").val(day.DisplayedValue + "  -  " + day.DayName + "  -  " + day.HijriDisplayedValue);
+    container.find("[id*=hfSel]").val(day.Value);
+
+    setTimeout(function () {
+        el.classList.remove("clicked");
+        closeCalSel();
+    }, 100)
+}
+
+function showCalSel(e, inputId) {
+    e.stopPropagation();
+
+    let container = $("#" + inputId).parent();
+    container.find(".desky-dark-container").toggleClass("desky-cal-hidden");
+    document.addEventListener('mouseup', deskyCalSelEvent);
+
+    if (container.find(".cal-type").hasClass("hijri-calendar"))
+        container.find(".cal-type").toggleClass("hijri-calendar");
+
+    if (container.find(".cal-type").hasClass("hijri-calendar"))
+        container.find(".cal-type").css("background-image", "url(../../assets/DatePicker/greg-cal.png)");
+    else
+        container.find(".cal-type").css("background-image", "url(../../assets/DatePicker/hijri-cal.png)");
+
+    drawCalSel(inputId);
+
+    return;
+}
+
+function closeCalSel() {
+    document.querySelectorAll('.desky-dark-container').forEach(function (el) {
+        if (!el.classList.contains('desky-cal-hidden')) {
+            el.classList.add('desky-cal-hidden');
+            return;
+        }
+    });
+    document.removeEventListener('mouseup', deskyCalSelEvent);
+}
+
+function cleareCalSel(item) {
+    var container = $(item).closest(".deskycal");
+    container.find(".cls-txtDayValue").val("");
+    container.find("[id*=hfSel]").val("");
+
+    closeCalSel();
+}
+
+function deskyCalSelEvent(e) {
+    document.querySelectorAll('.deskycal').forEach(function (el) {
+        let cls = el.querySelector('.desky-dark-container');
+        if (cls == null)
+            return;
+        if (!cls.classList.contains('desky-cal-hidden')) {
+            if (!cls.contains(e.target))
+                closeCalSel();
+        }
+    });
+}
+
+function CreateCalendar(min, max, sel, isHijri) {
+    var calGreg = $.calendars.instance();
+    var calHijri = $.calendars.instance('ummalqura');
+
+    var minimumDate = calGreg.today().add(-150, "y");
+    var minimum = parseInt(min);
+    if (isNaN(minimum) == false && minimum > 0 && minimum.toString().length == 8) {
+        if (calGreg.isValid(parseInt(minimum.toString().substr(0, 4)), parseInt(minimum.toString().substr(4, 2)), parseInt(minimum.toString().substr(6, 2))))
+            minimumDate = createGregDateFromValue(minimum);
+    }
+
+    var maximumDate = calGreg.today().add(25, "y");
+    var maximum = parseInt(max);
+    if (isNaN(maximum) == false && maximum > 0 && minimum.toString().length == 8) {
+        if (calGreg.isValid(parseInt(maximum.toString().substr(0, 4)), parseInt(maximum.toString().substr(4, 2)), parseInt(maximum.toString().substr(6, 2))))
+            maximumDate = createGregDateFromValue(maximum);
+    }
+
+    var selectedDate = 0;
+    var selectedYear = isHijri ? calHijri.today().year() : calGreg.today().year();
+    var selectedMonth = isHijri ? calHijri.today().formatDate("mm") : calGreg.today().formatDate("mm");
+
+    var selected = parseInt(sel);
+    if (isNaN(selected) == false && selected > 0) {
+        if (selected.toString().length == 8) {
+            var dateGreg = createDateFromValue(selected);
+            var dateHijri = convertFromGregToHijri(dateGreg);
+
+            selectedDate = parseInt(selected);
+            selectedYear = isHijri ? dateHijri.year() : dateGreg.year();
+            selectedMonth = isHijri ? dateHijri.formatDate("mm") : dateGreg.formatDate("mm");
+        }
+        else if (selected.toString().length == 6) {
+            var dateGreg;
+            var dateHijri;
+            if (isHijri) {
+                dateHijri = createDateFromValue(selected);
+                dateGreg = convertFromHijriToGreg(dateHijri);
+            }
+            else {
+                dateGreg = createDateFromValue(selected);
+                dateHijri = convertFromGregToHijri(dateGreg);
+            }
+
+            selectedYear = isHijri ? dateHijri.year() : dateGreg.year();
+            selectedMonth = isHijri ? dateHijri.formatDate("mm") : dateGreg.formatDate("mm");
+        }
+    }
+
+    var yearsList = [];
+    var minimumYear = isHijri ? convertFromGregToHijri(minimumDate).year() : minimumDate.year();
+    var maximumYear = isHijri ? convertFromGregToHijri(maximumDate).year() : maximumDate.year();
+    for (var i = parseInt(maximumYear); i >= parseInt(minimumYear); i--) {
+        yearsList.push(i);
+    }
+
+    var monthsList =
+        ["1 - يناير ", "2 - فبراير ", "3 - مارس ", "4 - أبريل ", "5 - مايو ", "6 - يونيو ", "7 - يوليو ", "8 - أغسطس ", "9 - سبتمبر ", "10 - أكتوبر ", "11 - نوفمبر ", "12 - ديسمبر "];
+    if (isHijri)
+        monthsList =
+            ["1 - محرم ", "2 - صفر ", "3 - ربيع أول ", "4 - ربيع ثان ", "5 - جماد أول ", "6 - جماد ثان ", "7 - رجب ", "8 - شعبان ", "9 - رمضان ", "10 - شوال ", "11 - ذو القعدة ", "12 - ذو الحجة "];
+
+    var currentMonth = createDateFromValue(selectedYear + selectedMonth + '01');
+    var firstDayOfCurrentMonth = currentMonth;
+    var lastDayOfCurrentMonth = calGreg.newDate(currentMonth.year(), currentMonth.month(), currentMonth.daysInMonth());
+    var daysOfLastMonth = calGreg.dayOfWeek(currentMonth.year(), currentMonth.month(), currentMonth.day());
+
+    if (isHijri) {
+        firstDayOfCurrentMonth = convertFromHijriToGreg(currentMonth);
+        lastDayOfCurrentMonth = createDateFromValue(selectedYear + selectedMonth + '29');
+        if (calHijri.isValid(lastDayOfCurrentMonth.year(), lastDayOfCurrentMonth.month(), 30))
+            lastDayOfCurrentMonth = createDateFromValue(selectedYear + selectedMonth + '30');
+        lastDayOfCurrentMonth = convertFromHijriToGreg(lastDayOfCurrentMonth);
+        daysOfLastMonth = calHijri.dayOfWeek(currentMonth.year(), currentMonth.month(), currentMonth.day());
+    }
+
+    var daysList = [];
+    var monthsName = "";
+    var currentDate = calGreg.today();
+
+    for (var i = 0; i < 42; i++) {
+        var dayIndex = -1 * daysOfLastMonth + i;
+        var incremental = jQuery.extend({}, firstDayOfCurrentMonth);
+        var dateGreg = incremental.add(dayIndex, "d");
+        var dateGregAr = createDateFromValue(dateGreg.formatDate("yyyymmdd"), "ar");
+        var dateHijri = convertFromGregToHijri(dateGreg);
+        var dateHijriAr = convertFromGregToHijri(dateGreg, "ar");
+        var dayOfWeek = dateGregAr.dayOfWeek();
+        var day = {
+            Value: dateGreg.formatDate("yyyymmdd"),
+            DayInMonth: dateGreg.day(),
+            DisplayedValue: dateGreg.formatDate("yyyy/mm/dd"),
+
+            HijriValue: dateHijri.formatDate("yyyymmdd"),
+            HijriDayInMonth: dateHijri.day(),
+            HijriDisplayedValue: dateHijri.formatDate("yyyy/mm/dd"),
+
+            DayName: dateGregAr._calendar.local.dayNames[dayOfWeek],
+            Month: dateGreg.month(),
+            Year: dateGreg.year(),
+
+            IsEnabled: true,
+            IsToday: false,
+            IsSelected: false
+        };
+
+        if (day.Value < firstDayOfCurrentMonth.formatDate("yyyymmdd")
+            || day.Value > lastDayOfCurrentMonth.formatDate("yyyymmdd")
+            || day.Value < minimumDate.formatDate("yyyymmdd")
+            || day.Value > maximumDate.formatDate("yyyymmdd")) {
+            day.IsEnabled = false;
+        }
+        if (day.Value < firstDayOfCurrentMonth.formatDate("yyyymmdd")
+            || day.Value > lastDayOfCurrentMonth.formatDate("yyyymmdd")
+            || day.Value < minimumDate.formatDate("yyyymmdd")
+            || day.Value > maximumDate.formatDate("yyyymmdd")) {
+            day.IsEnabled = false;
+        }
+
+        if (day.Value == selectedDate)
+            day.IsSelected = true;
+
+        if (day.Value == currentDate.formatDate("yyyymmdd"))
+            day.IsToday = true;
+
+        daysList.push(day);
+        var str = isHijri ? dateGregAr.formatDate(" MMMM-yyyy ") : dateHijriAr.formatDate(" MMMM-yyyy ");
+        if (monthsName.indexOf(str) < 0)
+            monthsName += str + "/";
+    }
+
+    if (monthsName != "")
+        monthsName = monthsName.substr(0, monthsName.length - 1);
+
+    return { yearsList, monthsList, monthsName, selectedYear, selectedMonth, selectedDate, daysList };
+}
+function CreateCalendarHijri(min, max, sel) {
+    var calGreg = $.calendars.instance();
+    var calHijri = $.calendars.instance('ummalqura');
+
+    var minimumDate = calGreg.today().add(-150, "y");
+    var minimum = parseInt(min);
+    if (isNaN(minimum) == false && minimum > 0 && minimum.toString().length == 8) {
+        if (calGreg.isValid(parseInt(minimum.toString().substr(0, 4)), parseInt(minimum.toString().substr(4, 2)), parseInt(minimum.toString().substr(6, 2))))
+            minimumDate = createGregDateFromValue(minimum);
+    }
+
+    var maximumDate = calGreg.today().add(25, "y");
+    var maximum = parseInt(max);
+    if (calGreg.isValid(parseInt(maximum.toString().substr(0, 4)), parseInt(maximum.toString().substr(4, 2)), parseInt(maximum.toString().substr(6, 2)))) {
+        maximumDate = createGregDateFromValue(maximum);
+    }
+
+    var selectedDate = 0;
+    var selectedYear = calHijri.today().year();
+    var selectedMonth = calHijri.today().formatDate("mm");
+
+    var selected = parseInt(sel);
+    if (isNaN(selected) == false && selected > 0) {
+        var dateGreg = createDateFromValue(selected);
+        var dateHijri = convertFromGregToHijri(dateGreg);
+        if (selected.toString().length == 8) {
+            selectedDate = parseInt(selected);
+            selectedYear = dateHijri.year();
+            selectedMonth = dateHijri.formatDate("mm");
+        }
+        else if (selected.toString().length == 6) {
+            selectedYear = dateHijri.year();
+            selectedMonth = dateHijri.month().formatDate("mm");
+        }
+    }
+
+    var yearsList = [];
+    var minimumYear = convertFromGregToHijri(minimumDate).year();
+    var maximumYear = convertFromGregToHijri(maximumDate).year();
+    for (var i = parseInt(maximumYear); i >= parseInt(minimumYear); i--) {
+        yearsList.push(i);
+    }
+
+    var monthsList =
+        ["1 - محرم ", "2 - صفر ", "3 - ربيع أول ", "4 - ربيع ثان ", "5 - جماد أول ", "6 - جماد ثان ", "7 - رجب ", "8 - شعبان ", "9 - رمضان ", "10 - شوال ", "11 - ذو القعدة ", "12 - ذو الحجة "];
+
+    var currentMonth = createDateFromValue(selectedYear + selectedMonth + '01');
+    var firstDayOfCurrentMonth = convertFromHijriToGreg(currentMonth);
+    var lastDayOfCurrentMonth = createDateFromValue(selectedYear + selectedMonth + '29');
+    if (calHijri.isValid(lastDayOfCurrentMonth.year(), lastDayOfCurrentMonth.month(), 30))
+        lastDayOfCurrentMonth = createDateFromValue(selectedYear + selectedMonth + '30');
+    lastDayOfCurrentMonth = convertFromHijriToGreg(lastDayOfCurrentMonth);
+
+    var daysOfLastMonth = calHijri.dayOfWeek(currentMonth.year(), currentMonth.month(), currentMonth.day());
+    var daysList = [];
+    var monthsName = "";
+    var currentDate = calGreg.today();
+    for (var i = 0; i < 42; i++) {
+        var dayIndex = -1 * daysOfLastMonth + i;
+        var incremental = jQuery.extend({}, firstDayOfCurrentMonth);
+        var date = incremental.add(dayIndex, "d");
+        var dateHijri = convertFromGregToHijri(date);
+        var dateHijriAr = convertFromGregToHijri(date, "ar");
+        var day = {
+            Value: date.formatDate("yyyymmdd"),
+            DayInMonth: date.day(),
+            DisplayedValue: date.formatDate("yyyy/mm/dd"),
+
+            HijriValue: dateHijri.formatDate("yyyymmdd"),
+            HijriDayInMonth: dateHijri.day(),
+            HijriDisplayedValue: dateHijri.formatDate("yyyy/mm/dd"),
+
+            DayName: dateHijriAr._calendar.local.dayNames[dayIndex],
+            Month: date.month(),
+            Year: date.year(),
+            IsEnabled: true,
+            IsToday: false,
+            IsSelected: false
+        };
+        if (day.Value < firstDayOfCurrentMonth.formatDate("yyyymmdd")
+            || day.Value > lastDayOfCurrentMonth.formatDate("yyyymmdd")
+            || day.Value < minimumDate.formatDate("yyyymmdd")
+            || day.Value > maximumDate.formatDate("yyyymmdd")) {
+            day.IsEnabled = false;
+        }
+
+        if (day.Value == selectedDate)
+            day.IsSelected = true;
+
+        if (day.Value == currentDate.formatDate("yyyy/mm/dd"))
+            day.IsToday = true;
+
+        daysList.push(day);
+        var str = dateHijriAr.formatDate(" MMMM-yyyy ");
+        if (monthsName.indexOf(str) < 0)
+            monthsName += str + "/";
+    }
+
+    if (monthsName != "")
+        monthsName = monthsName.substr(0, monthsName.length - 1);
+
+    return { yearsList, monthsList, monthsName, selectedYear, selectedMonth, selectedDate, daysList };
+}
+
+function convertFromGregToHijri(date, lang) {
+    var calHijri = $.calendars.instance('ummalqura');
+    var calGreg = $.calendars.instance();
+
+    if (lang)
+        calHijri = $.calendars.instance('ummalqura', lang);
+
+    var day = date.day();
+    var month = date.month();
+    var year = date.year();
+
+    var dtGer = calGreg.newDate(parseInt(year), parseInt(month), parseInt(day));
+    var days = dtGer.toJD();
+    var dateHijri = calHijri.fromJD(days);
+
+    return dateHijri;
+}
+function convertFromHijriToGreg(date) {
+    var calHijri = $.calendars.instance('ummalqura');
+    var calGreg = $.calendars.instance();
+
+    var day = date.day();
+    var month = date.month();
+    var year = date.year();
+
+    var dtHj = calHijri.newDate(parseInt(year), parseInt(month), parseInt(day));
+    var days = dtHj.toJD();
+
+    var dateGreg = calGreg.fromJD(days);
+
+    return dateGreg;
+}
+
+function createDateFromValue(value, lang) {
+    var dateValue = parseInt(value);
+    if (isNaN(dateValue) == false && dateValue > 0) {
+        if (dateValue.toString().length == 8) {
+            if (dateValue < 18000101) {
+                var calH = $.calendars.instance('ummalqura');
+                if (lang)
+                    calH = $.calendars.instance('ummalqura', lang);
+
+                var dateH = calH.newDate(
+                    parseInt(dateValue.toString().substr(0, 4)),
+                    parseInt(dateValue.toString().substr(4, 2)),
+                    parseInt(dateValue.toString().substr(6, 2)));
+
+                return dateH;
+            }
+            else {
+                var calG = $.calendars.instance();
+                if (lang)
+                    calG = $.calendars.instance('', lang);
+
+                var dateG = calG.newDate(
+                    parseInt(dateValue.toString().substr(0, 4)),
+                    parseInt(dateValue.toString().substr(4, 2)),
+                    parseInt(dateValue.toString().substr(6, 2)));
+
+                return dateG;
+            }
+        }
+        if (dateValue.toString().length == 6) {
+            if (dateValue < 180001) {
+                var calH = $.calendars.instance('ummalqura');
+                if (lang)
+                    calH = $.calendars.instance('ummalqura', lang);
+
+                var dateH = calH.newDate(
+                    parseInt(dateValue.toString().substr(0, 4)),
+                    parseInt(dateValue.toString().substr(4, 2)),
+                    1);
+
+                return dateH;
+            }
+            else {
+                var calG = $.calendars.instance();
+                if (lang)
+                    calG = $.calendars.instance('', lang);
+
+                var dateG = calG.newDate(
+                    parseInt(dateValue.toString().substr(0, 4)),
+                    parseInt(dateValue.toString().substr(4, 2)),
+                    1);
+
+                return dateG;
+            }
+        }
+    }
+}
