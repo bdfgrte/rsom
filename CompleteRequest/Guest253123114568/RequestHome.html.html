@@ -369,51 +369,129 @@ Sys.WebForms.PageRequestManager._initialize('ctl00$ctl00$ScriptManager1', 'Form1
                 <div class="card-body">
 
                     <div>
-	<div id="PlaceHolderMain_PlaceHolderMain_dlDir_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="col-sm-12"><table class="nothead dtable display responsive no-wrap card-table table-striped table-hover dataTable right_sort no-footer dtr-inline" cellspacing="0" rules="all" border="1" id="PlaceHolderMain_PlaceHolderMain_dlDir" style="border-collapse: collapse; width: 1142px;" role="grid"><thead class="bg-primary text-white"><tr role="row"><th scope="col" class="sorting_disabled" rowspan="1" colspan="1" style="width: 246px;">التقديم</th><th scope="col" class="sorting_disabled" rowspan="1" colspan="1" style="width: 362px;">النتيجة</th><th scope="col" class="sorting_disabled" rowspan="1" colspan="1" style="width: 154px;">تاريخ</th><th scope="col" class="sorting_disabled" rowspan="1" colspan="1" style="width: 216px;">ملاحظات</th></tr></thead>
-		<tbody>
-	<tr role="row" class="odd">
-			<td tabindex="0">
-		</tr><tr role="row" class="even">
-			<td tabindex="0">
-                                    <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblStage_1">استلام الملف</span>
-                                </td><td>
-                                    <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblResults_1">تم استلام الطلب</span>
-                                </td><td>
-                                    <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblDate_1">07 - 03 - 2025</span>
-                                </td><td>
-                                    <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblNotes_1"></span>
-                                </td>
-		</tr><tr role="row" class="odd">
-			<td tabindex="0">
-                                    <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblStage_2">المعالجة</span>
-                                </td><td>
-                                    <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblResults_2">تم الموافقة على القرض</span>
-                                </td><td>
-                                    <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblDate_2">7 - 03 - 2025</span>
-                                </td><td>
-                                    <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblNotes_2"></span>
-                                </td>
-		</tr><tr role="row" class="even">
-			<td tabindex="0">
-                                    <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblStage_3">إعتماد الصرف</span>
-                                </td><td>
-                                    <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblResults_3">تم الاعتماد</span>
-                                </td><td>
-                                    <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblDate_3">7 - 03 - 2025</span>
-                                </td><td>
-                                    <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblNotes_3"></span>
-                                </td>
-		</tr><tr role="row" class="odd">
-			<td tabindex="0">
-                                    <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblStage_4">إيداع المبلغ</span>
-                                </td><td>
-                                    <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblResults_4">لم يتم تحصيل الرسوم</span>
-                                </td><td>
-                                    <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblDate_4"></span>
-                                </td><td>
-                                    <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblNotes_4"></span>
-                                </td>
-		</tr></tbody></table></div></div><div class="row"><div class="col-sm-12 col-md-5"></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="PlaceHolderMain_PlaceHolderMain_dlDir_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="PlaceHolderMain_PlaceHolderMain_dlDir_previous"><a href="https://len.sdb.gov.sa/Request/RequestHome.aspx#" aria-controls="PlaceHolderMain_PlaceHolderMain_dlDir" data-dt-idx="0" tabindex="0" class="page-link">السابق</a></li><li class="paginate_button page-item active"><a href="https://len.sdb.gov.sa/Request/RequestHome.aspx#" aria-controls="PlaceHolderMain_PlaceHolderMain_dlDir" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item next disabled" id="PlaceHolderMain_PlaceHolderMain_dlDir_next"><a href="https://len.sdb.gov.sa/Request/RequestHome.aspx#" aria-controls="PlaceHolderMain_PlaceHolderMain_dlDir" data-dt-idx="2" tabindex="0" class="page-link">التالي</a></li></ul></div></div></div></div>
+	<div id="PlaceHolderMain_PlaceHolderMain_dlDir_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="col-sm-12">
+        
+        <style>
+            /* جعل الجدول قابلاً للتمرير أفقيًا على الشاشات الصغيرة */
+            .dataTables_wrapper {
+                width: 100%;
+                overflow-x: auto;
+            }
+          
+            /* تحسين تنسيق الجدول */
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+          
+            th, td {
+                padding: 10px;
+                text-align: left;
+                border: 1px solid #ddd;
+            }
+          
+            /* تحسين عرض الجدول على الشاشات الصغيرة */
+            @media screen and (max-width: 600px) {
+                table, thead, tbody, th, td, tr {
+                    display: block;
+                }
+          
+                thead {
+                    display: none; /* إخفاء عناوين الأعمدة على الهواتف */
+                }
+          
+                tr {
+                    margin-bottom: 10px;
+                    border: 1px solid #ddd;
+                    padding: 10px;
+                    background: #f9f9f9;
+                }
+          
+                td {
+                    text-align: right;
+                    padding-left: 50%;
+                    position: relative;
+                    display: flex;
+                    justify-content: space-between;
+                }
+          
+                td::before {
+                    content: attr(data-label);
+                    font-weight: bold;
+                    color: #333;
+                }
+            }
+          </style>
+          
+          <table class="nothead dtable display responsive no-wrap card-table table-striped table-hover dataTable right_sort no-footer dtr-inline" cellspacing="0" rules="all" border="1" id="PlaceHolderMain_PlaceHolderMain_dlDir" style="border-collapse: collapse; width: 100%;" role="grid">
+            <thead class="bg-primary text-white">
+              <tr role="row">
+                <th scope="col" class="sorting_disabled" rowspan="1" colspan="1" style="width: 246px;">التقديم</th>
+                <th scope="col" class="sorting_disabled" rowspan="1" colspan="1" style="width: 362px;">النتيجة</th>
+                <th scope="col" class="sorting_disabled" rowspan="1" colspan="1" style="width: 154px;">تاريخ</th>
+                <th scope="col" class="sorting_disabled" rowspan="1" colspan="1" style="width: 216px;">ملاحظات</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr role="row" class="odd">
+                <td tabindex="0">
+                  <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblStage_1">استلام الملف</span>
+                </td>
+                <td>
+                  <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblResults_1">تم استلام الطلب</span>
+                </td>
+                <td>
+                  <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblDate_1">07 - 03 - 2025</span>
+                </td>
+                <td>
+                  <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblNotes_1"></span>
+                </td>
+              </tr>
+              <tr role="row" class="even">
+                <td tabindex="0">
+                  <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblStage_2">المعالجة</span>
+                </td>
+                <td>
+                  <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblResults_2">تم الموافقة على القرض</span>
+                </td>
+                <td>
+                  <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblDate_2">7 - 03 - 2025</span>
+                </td>
+                <td>
+                  <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblNotes_2"></span>
+                </td>
+              </tr>
+              <tr role="row" class="odd">
+                <td tabindex="0">
+                  <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblStage_3">إعتماد الصرف</span>
+                </td>
+                <td>
+                  <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblResults_3">تم الاعتماد</span>
+                </td>
+                <td>
+                  <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblDate_3">7 - 03 - 2025</span>
+                </td>
+                <td>
+                  <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblNotes_3"></span>
+                </td>
+              </tr>
+              <tr role="row" class="even">
+                <td tabindex="0">
+                  <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblStage_4">إيداع المبلغ</span>
+                </td>
+                <td>
+                  <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblResults_4">لم يتم تحصيل الرسوم</span>
+                </td>
+                <td>
+                  <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblDate_4"></span>
+                </td>
+                <td>
+                  <span id="PlaceHolderMain_PlaceHolderMain_dlDir_lblNotes_4"></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          </div></div><div class="row"><div class="col-sm-12 col-md-5"></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="PlaceHolderMain_PlaceHolderMain_dlDir_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="PlaceHolderMain_PlaceHolderMain_dlDir_previous"><a href="https://len.sdb.gov.sa/Request/RequestHome.aspx#" aria-controls="PlaceHolderMain_PlaceHolderMain_dlDir" data-dt-idx="0" tabindex="0" class="page-link">السابق</a></li><li class="paginate_button page-item active"><a href="https://len.sdb.gov.sa/Request/RequestHome.aspx#" aria-controls="PlaceHolderMain_PlaceHolderMain_dlDir" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item next disabled" id="PlaceHolderMain_PlaceHolderMain_dlDir_next"><a href="https://len.sdb.gov.sa/Request/RequestHome.aspx#" aria-controls="PlaceHolderMain_PlaceHolderMain_dlDir" data-dt-idx="2" tabindex="0" class="page-link">التالي</a></li></ul></div></div></div></div>
 </div>
                 </div>
             </div>
